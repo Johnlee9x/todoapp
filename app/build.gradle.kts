@@ -51,4 +51,5 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("androidx.hilt:hilt-navigation-compose:1.3.0")
+    implementation(libs.androidx.lifecycle.runtimeCompose)
 }
