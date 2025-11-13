@@ -53,6 +53,11 @@ dependencies {
     implementation(composeBom)
     implementation(libs.androidx.compose.ui.tooling.preview)
 
+    //room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
     debugImplementation(libs.androidx.compose.ui.tooling.core)
 
     testImplementation(libs.junit)
