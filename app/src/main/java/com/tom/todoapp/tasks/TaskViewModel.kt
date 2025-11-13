@@ -1,6 +1,9 @@
 package com.tom.todoapp.tasks
 
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class TaskViewModel : ViewModel() {
+@HiltViewModel
+class TaskViewModel @Inject constructor() : ViewModel() {
 }

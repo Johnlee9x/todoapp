@@ -30,6 +30,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.tom.todoapp.R
 import com.tom.todoapp.util.AddEditTaskTopAppBar
 
@@ -39,6 +40,7 @@ fun AddEditTaskScreen(
     onTaskUpdate: () -> Unit = {},
     onBack: () -> Unit = {},
     modifier: Modifier = Modifier,
+    addEditTaskViewModel: AddEditTaskViewModel = hiltViewModel(),
     snackBarHostState: SnackbarHostState = remember { SnackbarHostState() }
 ) {
     Log.i("tamld7", "AddEditTaskScreen: was called")
