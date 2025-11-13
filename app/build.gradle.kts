@@ -52,4 +52,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("androidx.hilt:hilt-navigation-compose:1.3.0")
     implementation(libs.androidx.lifecycle.runtimeCompose)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.iconsExtended)
 }

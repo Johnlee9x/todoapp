@@ -1,6 +1,7 @@
 package com.tom.todoapp
 
 import androidx.navigation.NavHostController
+import com.tom.todoapp.TodoDestinationsArgs.TASK_ID_ARG
 
 private object TodoScreen {
     const val TASKS_SCREEN = "tasks"
@@ -17,18 +18,30 @@ object TodoDestinationsArgs {
 
 
 object TodoDestinations {
-    const val TASKS_ROUTE = "tasks_route"
-    const val STATISTIC_ROUTE = "s"
-    const val ADD_EDIT_TASK_ROUTE = "a"
-    const val TASK_DETAIL_ROUTE = "t"
+    const val TASKS_ROUTE =
+        "${TodoScreen.TASKS_SCREEN}?${TodoDestinationsArgs.USER_MESSAGE_ARG}={${TodoDestinationsArgs.USER_MESSAGE_ARG}}"
+    const val STATISTIC_ROUTE = TodoScreen.STATISTICS_SCREEN
+    const val ADD_EDIT_TASK_ROUTE =
+        "${TodoScreen.ADD_EDIT_TASK_SCREEN}/{${TodoDestinationsArgs.TITLE_ARG}}?${TodoDestinationsArgs.TASK_ID_ARG}={${TodoDestinationsArgs.TASK_ID_ARG}"
+    const val TASK_DETAIL_ROUTE =
+        "${TodoScreen.TASK_DETAIL_SCREEN}/{${TodoDestinationsArgs.TASK_ID_ARG}}"
 }
 
 class TodoNavigation(private val navController: NavHostController) {
-    fun navigateToTasks() {}
+    fun navigateToTasks(userMessage: Int = 0) {
+
+    }
 
     fun navigateToStatistic() {}
-    fun navigateToAddEditTask() {}
-    fun navigateToDetailTask() {}
+    fun navigateToAddEditTask(title: Int, taskId: String) {
+        navController.navigate(route = "${TodoScreen.TASK_DETAIL_SCREEN}/$title".let {
+            "$it?$TASK_ID_ARG=$taskId"
+        })
+    }
+
+    fun navigateToDetailTask(taskId: String) {
+        navController.navigate(route = "${TodoScreen.TASK_DETAIL_SCREEN}/$taskId")
+    }
 
 }
 
