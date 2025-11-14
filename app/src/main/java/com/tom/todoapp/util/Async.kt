@@ -1,6 +1,6 @@
 package com.tom.todoapp.util
 
-sealed class Async<T> {
+sealed class Async<out T> {
     object Loading : Async<Nothing>()
 
     data class Success<T>(val data: T) : Async<T>()

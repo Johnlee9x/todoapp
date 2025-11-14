@@ -43,9 +43,6 @@ fun AddEditTaskScreen(
     addEditTaskViewModel: AddEditTaskViewModel = hiltViewModel(),
     snackBarHostState: SnackbarHostState = remember { SnackbarHostState() }
 ) {
-    Log.i("tamld7", "AddEditTaskScreen: was called")
-    Log.i("tamld7", "AddEditTaskScreen: topBarTitle = $topBarTitle")
-
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         snackbarHost = { SnackbarHost(snackBarHostState) },
