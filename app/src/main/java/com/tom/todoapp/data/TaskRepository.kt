@@ -5,6 +5,8 @@ import kotlinx.coroutines.flow.Flow
 interface TaskRepository {
     fun getTasksStream(): Flow<List<Task>>
 
+    fun getTaskById(taskId: String): Flow<Task?>
+
     suspend fun getTasks(forceUpdate: Boolean = false): List<Task>
 
     suspend fun refreshTasks()

@@ -17,6 +17,7 @@ import com.tom.todoapp.TodoDestinationsArgs.TASK_ID_ARG
 import com.tom.todoapp.TodoDestinationsArgs.TITLE_ARG
 import com.tom.todoapp.TodoDestinationsArgs.USER_MESSAGE_ARG
 import com.tom.todoapp.addedittask.AddEditTaskScreen
+import com.tom.todoapp.taskdetail.TaskDetailScreen
 import com.tom.todoapp.tasks.TaskScreen
 import kotlinx.coroutines.CoroutineScope
 
@@ -49,6 +50,7 @@ fun TodoNavGraph(
                     taskId = null
                 )
             }, onTaskClick = { task ->
+                Log.i("tamld7", "TodoNavGraph:task = $task ")
                 navAction.navigateToDetailTask(taskId = task.id)
             })
         }
@@ -74,7 +76,7 @@ fun TodoNavGraph(
                 type = NavType.StringType
             })
         ) { entry ->
-
+            TaskDetailScreen()
         }
 
     }

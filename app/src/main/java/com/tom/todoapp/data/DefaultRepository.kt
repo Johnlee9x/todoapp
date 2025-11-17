@@ -26,6 +26,14 @@ class DefaultRepository @Inject constructor(
         }
     }
 
+    override fun getTaskById(taskId: String): Flow<Task?> {
+        return localDataSource.observeById(taskId = taskId).map { task ->
+            withContext(defaultDispatcher) {
+                task.toExternal()
+            }
+        }
+    }
+
     override suspend fun getTasks(forceUpdate: Boolean): List<Task> {
         return listOf(Task("1", "title", isCompleted = true, id = ""))
     }
