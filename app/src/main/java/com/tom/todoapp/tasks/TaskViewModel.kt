@@ -84,8 +84,8 @@ class TaskViewModel @Inject constructor(
         for (task in tasks) {
             when (filterType) {
                 TasksFilterType.ALL_TASKS -> tasksToShow.add(task)
-                TasksFilterType.ACTIVE_TASKS -> if (task.isCompleted) tasksToShow.add(task)
-                TasksFilterType.COMPLETED_TASK -> if (!task.isCompleted) tasksToShow.add(task)
+                TasksFilterType.ACTIVE_TASKS -> if (!task.isCompleted) tasksToShow.add(task)
+                TasksFilterType.COMPLETED_TASK -> if (task.isCompleted) tasksToShow.add(task)
 
             }
         }
@@ -147,6 +147,11 @@ class TaskViewModel @Inject constructor(
     fun setFiltering(requestType: TasksFilterType) {
         Log.i("tamld7", "setFiltering:requestType =$requestType ")
         savedStateHandle[TASKS_FILTER_SAVED_STATE_KEY] = requestType
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.i("tamld7", "onCleared: was called")
     }
 }
 
