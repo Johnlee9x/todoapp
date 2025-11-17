@@ -68,4 +68,12 @@ class DefaultRepository @Inject constructor(
 
     override suspend fun deleteAllTask() {
     }
+
+    override suspend fun completedTask(taskId: String) {
+        localDataSource.updateCompleted(taskId = taskId, completed = true)
+    }
+
+    override suspend fun updateActiveTask(taskId: String) {
+        localDataSource.updateCompleted(taskId = taskId, completed = false)
+    }
 }

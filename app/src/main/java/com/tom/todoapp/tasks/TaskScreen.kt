@@ -51,9 +51,9 @@ fun TaskScreen(
         topBar = {
             TasksTopAppBar(
                 openDrawer = openDrawer,
-                onFilterAllTasks = {},
-                onFilterActiveTasks = {},
-                onFilterCompletedTasks = {},
+                onFilterAllTasks = { taskViewModel.setFiltering(TasksFilterType.ALL_TASKS) },
+                onFilterActiveTasks = { taskViewModel.setFiltering(TasksFilterType.ACTIVE_TASKS) },
+                onFilterCompletedTasks = { taskViewModel.setFiltering(TasksFilterType.COMPLETED_TASK) },
                 onClearCompletedTasks = {},
                 onRefresh = {
                     taskViewModel.refresh()
@@ -124,7 +124,7 @@ fun TaskContent(
 fun TaskItem(
     task: Task, onTaskClick: (Task) -> Unit = {}, onCheckChange: (Boolean) -> Unit = {}
 ) {
-
+    Log.i("tamld7", "TaskItem: task = $task")
     Row(
         verticalAlignment = Alignment.CenterVertically, modifier = Modifier
             .fillMaxWidth()

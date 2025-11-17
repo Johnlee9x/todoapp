@@ -48,6 +48,8 @@ fun TodoNavGraph(
                     title = R.string.add_task,
                     taskId = null
                 )
+            }, onTaskClick = { task ->
+                navAction.navigateToDetailTask(taskId = task.id)
             })
         }
         composable(route = TodoDestinations.STATISTIC_ROUTE) {}

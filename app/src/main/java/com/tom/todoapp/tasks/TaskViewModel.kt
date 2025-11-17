@@ -39,7 +39,11 @@ class TaskViewModel @Inject constructor(
         combine(
             taskRepository.getTasksStream(),
             _saveFilterType
-        ) { tasks, type -> filterTasks(tasks, type) }.map {
+        ) { tasks, type ->
+            Log.i("tamld7", ": tasks =$tasks")
+            Log.i("tamld7", ": type =$type")
+            filterTasks(tasks, type)
+        }.map {
             Async.Success(it)
         }.catch<Async<List<Task>>> { emit(Async.Error(1)) }
 
@@ -125,10 +129,24 @@ class TaskViewModel @Inject constructor(
     }
 
     fun completeTask(task: Task, completed: Boolean) = viewModelScope.launch {
+        Log.i("tamld7", "completeTask: task = $task")
+        Log.i("tamld7", "completeTask: completed = $completed")
         if (completed) {
+            taskRepository.completedTask(taskId = task.id)
         } else {
-
+            taskRepository.updateActiveTask(taskId = task.id)
         }
+    }
+
+    fun clearCompletedTasks() {
+        viewModelScope.launch {
+            //todo clear tasks later
+        }
+    }
+
+    fun setFiltering(requestType: TasksFilterType) {
+        Log.i("tamld7", "setFiltering:requestType =$requestType ")
+        savedStateHandle[TASKS_FILTER_SAVED_STATE_KEY] = requestType
     }
 }
 

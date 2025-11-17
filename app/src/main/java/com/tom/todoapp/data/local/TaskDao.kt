@@ -25,6 +25,8 @@ interface TaskDao {
     @Upsert
     suspend fun upsertAll(tasks: List<LocalTask>)
 
+    @Query("UPDATE tasks SET isCompleted = :completed WHERE id = :taskId")
+    suspend fun updateCompleted(taskId: String, completed: Boolean)
 }
 
 
