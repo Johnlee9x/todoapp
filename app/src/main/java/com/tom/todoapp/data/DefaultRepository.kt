@@ -1,5 +1,6 @@
 package com.tom.todoapp.data
 
+import android.util.Log
 import com.tom.todoapp.data.local.TaskDao
 import com.tom.todoapp.data.remote.NetworkDataSource
 import com.tom.todoapp.di.ApplicationScope
@@ -27,6 +28,7 @@ class DefaultRepository @Inject constructor(
     }
 
     override fun getTaskById(taskId: String): Flow<Task?> {
+        Log.i("tamld7", "getTaskById:taskId = $taskId ")
         return localDataSource.observeById(taskId = taskId).map { task ->
             withContext(defaultDispatcher) {
                 task.toExternal()
