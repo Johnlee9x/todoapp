@@ -72,4 +72,19 @@ dependencies {
     implementation(libs.hilt.android.core)
     implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.hilt.compiler)
+    // JVM tests - Hilt
+    testImplementation(libs.hilt.android.testing)
+
+
+    // Dependencies for Android unit tests
+
+    // AndroidX Test - Instrumented testing
+    androidTestImplementation(composeBom)
+    androidTestImplementation(libs.androidx.test.core.ktx)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit)
+
+    // AndroidX Test - Hilt testing
+    androidTestImplementation(libs.hilt.android.testing)
+
 }

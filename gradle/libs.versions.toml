@@ -18,6 +18,10 @@ androidxHiltNavigationCompose = "1.2.0"
 ksp = "2.0.0-1.0.21"
 androidGradlePlugin = "8.7.3"
 room = "2.6.1"
+androidxNavigation = "2.8.5"
+androidxArchCore = "2.2.0"
+androidxTestCore = "1.6.1"
+androidxTestRules = "1.6.1"
 
 
 [libraries]
@@ -42,6 +46,12 @@ androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navig
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-compose-ui-test-junit = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-archcore-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "androidxArchCore" }
+androidx-navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "androidxNavigation" }
+hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
+androidx-test-core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "androidxTestCore" }
+androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidxTestRules" }
 
 
 [plugins]
