@@ -138,9 +138,19 @@ class TaskViewModel @Inject constructor(
         }
     }
 
+    fun deleteTask(task: Task) = viewModelScope.launch {
+        taskRepository.deleteTask(taskId = task.id)
+        _userMsg.value = R.string.successfully_deleted_task_message
+    }
+
+    fun userMsgShown() {
+        _userMsg.value = null
+    }
+
     fun clearCompletedTasks() {
         viewModelScope.launch {
-            //todo clear tasks later
+            taskRepository.deleteCompletedTasks()
+            _userMsg.value = R.string.completed_tasks_cleared
         }
     }
 

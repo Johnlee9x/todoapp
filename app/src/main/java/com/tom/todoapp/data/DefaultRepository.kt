@@ -63,7 +63,12 @@ class DefaultRepository @Inject constructor(
         title: String,
         description: String
     ): String {
-        return ""
+        val taskId = withContext(defaultDispatcher) {
+            java.util.UUID.randomUUID().toString()
+        }
+        val task = LocalTask(id = taskId, title = title, description = description, isCompleted = false)
+        localDataSource.upsert(task)
+        return taskId
     }
 
     override suspend fun updateTask(
@@ -71,12 +76,21 @@ class DefaultRepository @Inject constructor(
         title: String,
         description: String
     ) {
+        val task = localDataSource.getById(taskId)?.copy(title = title, description = description)
+            ?: throw Exception("Task (id $taskId) not found")
+        localDataSource.upsert(task)
     }
 
     override suspend fun deleteTask(taskId: String) {
+        localDataSource.deleteById(taskId)
     }
 
     override suspend fun deleteAllTask() {
+        localDataSource.deleteAll()
+    }
+
+    override suspend fun deleteCompletedTasks() {
+        localDataSource.deleteAllCompleted()
     }
 
     override suspend fun completedTask(taskId: String) {

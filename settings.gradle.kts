@@ -21,4 +21,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "todoapp"
 include(":app")
+include(":core:data")
+include(":core:ui")
+include(":feature:task")
+include(":feature:addedittask")
+include(":feature:taskdetail")
  

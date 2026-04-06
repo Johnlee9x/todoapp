@@ -53,11 +53,6 @@ dependencies {
     implementation(composeBom)
     implementation(libs.androidx.compose.ui.tooling.preview)
 
-    //room
-    implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
-    ksp(libs.room.compiler)
-
     debugImplementation(libs.androidx.compose.ui.tooling.core)
 
     testImplementation(libs.junit)
@@ -72,11 +67,16 @@ dependencies {
     implementation(libs.hilt.android.core)
     implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.hilt.compiler)
-    // JVM tests - Hilt
-    testImplementation(libs.hilt.android.testing)
+    implementation(libs.work.runtime.ktx)
+    implementation(libs.hilt.work)
+    ksp(libs.hilt.work.compiler)
 
-
-    // Dependencies for Android unit tests
+    // Internal modules
+    implementation(project(":core:data"))
+    implementation(project(":core:ui"))
+    implementation(project(":feature:task"))
+    implementation(project(":feature:addedittask"))
+    implementation(project(":feature:taskdetail"))
 
     // AndroidX Test - Instrumented testing
     androidTestImplementation(composeBom)

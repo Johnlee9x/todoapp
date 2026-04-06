@@ -16,9 +16,9 @@ import androidx.navigation.navArgument
 import com.tom.todoapp.TodoDestinationsArgs.TASK_ID_ARG
 import com.tom.todoapp.TodoDestinationsArgs.TITLE_ARG
 import com.tom.todoapp.TodoDestinationsArgs.USER_MESSAGE_ARG
-import com.tom.todoapp.addedittask.AddEditTaskScreen
-import com.tom.todoapp.taskdetail.TaskDetailScreen
-import com.tom.todoapp.tasks.TaskScreen
+import com.tom.todoapp.feature.addedittask.AddEditTaskScreen
+import com.tom.todoapp.feature.taskdetail.TaskDetailScreen
+import com.tom.todoapp.feature.task.TaskScreen
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -67,7 +67,8 @@ fun TodoNavGraph(
             AddEditTaskScreen(
                 topBarTitle = entry.arguments?.getInt(TITLE_ARG)
                     ?: R.string.add_task,
-                onBack = { navHostController.popBackStack() }
+                onBack = { navHostController.popBackStack() },
+                onTaskUpdate = { navAction.navigateToTasks(R.string.successfully_saved_task_message) }
             )
         }
         composable(
@@ -76,7 +77,13 @@ fun TodoNavGraph(
                 type = NavType.StringType
             })
         ) { entry ->
-            TaskDetailScreen()
+            TaskDetailScreen(
+                onEditTask = { taskId ->
+                    navAction.navigateToAddEditTask(title = R.string.edit_task, taskId = taskId)
+                },
+                onBack = { navHostController.popBackStack() },
+                onDeleteTask = { navHostController.popBackStack() }
+            )
         }
 
     }

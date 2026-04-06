@@ -74,15 +74,19 @@ class TaskDetailViewModel @Inject constructor(
         }
     }
 
+    fun userMsgShown() {
+        _userMsg.value = null
+    }
+
     fun setCompleted(completed: Boolean) {
         viewModelScope.launch {
             val task = uiState.value.task ?: return@launch
             if (completed) {
                 taskRepository.completedTask(taskId = task.id)
-                //todo display snackbar
+                _userMsg.value = R.string.task_marked_complete
             } else {
                 taskRepository.updateActiveTask(taskId = task.id)
-                //todo display snackbar
+                _userMsg.value = R.string.task_marked_active
             }
         }
     }

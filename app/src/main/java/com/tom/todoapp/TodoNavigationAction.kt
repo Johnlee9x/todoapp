@@ -33,7 +33,9 @@ object TodoDestinations {
 
 class TodoNavigationAction(private val navController: NavHostController) {
     fun navigateToTasks(userMessage: Int = 0) {
-
+        navController.navigate("${TodoScreen.TASKS_SCREEN}?${TodoDestinationsArgs.USER_MESSAGE_ARG}=$userMessage") {
+            popUpTo(0) { inclusive = true }
+        }
     }
 
     fun navigateToStatistic() {}
