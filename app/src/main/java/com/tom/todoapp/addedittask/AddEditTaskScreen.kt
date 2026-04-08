@@ -1,6 +1,5 @@
 package com.tom.todoapp.addedittask
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -82,52 +81,6 @@ fun AddEditTaskScreen(
             onDescriptionChange = addEditTaskViewModel::setDescription,
             modifier = Modifier.padding(paddingValues = paddingValues)
         )
-    }
-}
-
-@Composable
-fun AddEditContent(
-    loading: Boolean = false,
-    title: String = "",
-    description: String = "",
-    onTitleChange: (String) -> Unit = {},
-    onDescriptionChange: (String) -> Unit = {},
-    modifier: Modifier = Modifier
-) {
-    var isRefreshing by remember { mutableStateOf(false) }
-    val refreshingState = rememberPullToRefreshState()
-    if (loading) {
-        PullToRefreshBox(
-            isRefreshing = isRefreshing,
-            state = refreshingState,
-            onRefresh = {},
-            content = {})
-    } else {
-        Column(
-            modifier
-                .fillMaxWidth()
-                .padding(all = dimensionResource(id = R.dimen.horizontal_margin))
-                .verticalScroll(state = rememberScrollState())
-        ) {
-
-            OutlinedTextField(
-                value = title,
-                modifier = Modifier.fillMaxWidth(),
-                onValueChange = onTitleChange,
-                placeholder = { Text(text = stringResource(id = R.string.title_hint)) },
-                textStyle = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-                maxLines = 1,
-            )
-            OutlinedTextField(
-                value = description,
-                modifier = Modifier
-                    .height(350.dp)
-                    .fillMaxWidth(),
-                onValueChange = onDescriptionChange,
-                placeholder = { Text(text = stringResource(id = R.string.description_hint)) },
-            )
-
-        }
     }
 }
 
