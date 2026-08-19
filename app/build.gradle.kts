@@ -67,9 +67,13 @@ dependencies {
     implementation(libs.hilt.android.core)
     implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.hilt.compiler)
+
+    // Configuration.Provider + HiltWorkerFactory wiring lives here (TodoApplication);
+    // the @HiltWorker itself (SyncTasksWorker) lives in :core:data.
     implementation(libs.work.runtime.ktx)
     implementation(libs.hilt.work)
-    ksp(libs.hilt.work.compiler)
+
+    implementation(libs.androidx.navigation.compose)
 
     // Internal modules
     implementation(project(":core:data"))
