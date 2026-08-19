@@ -3,9 +3,10 @@ package com.tom.todoapp
 import android.util.Log
 import androidx.navigation.NavHostController
 import com.tom.todoapp.TodoDestinations.ADD_EDIT_TASK_ROUTE
-import com.tom.todoapp.TodoDestinationsArgs.TASK_ID_ARG
 import com.tom.todoapp.TodoScreen.ADD_EDIT_TASK_SCREEN
 import com.tom.todoapp.TodoScreen.TASK_DETAIL_SCREEN
+import com.tom.todoapp.core.ui.TodoDestinationsArgs
+import com.tom.todoapp.core.ui.TodoDestinationsArgs.TASK_ID_ARG
 
 private object TodoScreen {
     const val TASKS_SCREEN = "tasks"
@@ -13,13 +14,6 @@ private object TodoScreen {
     const val TASK_DETAIL_SCREEN = "task"
     const val ADD_EDIT_TASK_SCREEN = "addEditTask"
 }
-
-object TodoDestinationsArgs {
-    const val USER_MESSAGE_ARG = "userMessage"
-    const val TASK_ID_ARG = "taskId"
-    const val TITLE_ARG = "title"
-}
-
 
 object TodoDestinations {
     const val TASKS_ROUTE =

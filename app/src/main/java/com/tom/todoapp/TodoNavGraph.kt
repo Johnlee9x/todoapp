@@ -13,9 +13,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.tom.todoapp.TodoDestinationsArgs.TASK_ID_ARG
-import com.tom.todoapp.TodoDestinationsArgs.TITLE_ARG
-import com.tom.todoapp.TodoDestinationsArgs.USER_MESSAGE_ARG
+import com.tom.todoapp.core.ui.R
+import com.tom.todoapp.core.ui.TodoDestinationsArgs.TASK_ID_ARG
+import com.tom.todoapp.core.ui.TodoDestinationsArgs.TITLE_ARG
+import com.tom.todoapp.core.ui.TodoDestinationsArgs.USER_MESSAGE_ARG
 import com.tom.todoapp.feature.addedittask.AddEditTaskScreen
 import com.tom.todoapp.feature.taskdetail.TaskDetailScreen
 import com.tom.todoapp.feature.task.TaskScreen
