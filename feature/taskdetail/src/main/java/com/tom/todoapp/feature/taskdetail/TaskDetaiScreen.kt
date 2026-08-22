@@ -30,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.tom.todoapp.core.data.Priority
 import com.tom.todoapp.core.data.Task
 import com.tom.todoapp.core.ui.DetailTaskTopAppBar
 import com.tom.todoapp.core.ui.R
@@ -156,7 +157,21 @@ fun EditTaskContent(
                         top = dimensionResource(R.dimen.vertical_margin)
                     )
                 )
+                Text(
+                    text = "${stringResource(R.string.priority)}: ${stringResource(priorityLabel(task.priority))}",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(
+                        start = dimensionResource(R.dimen.horizontal_margin),
+                        top = dimensionResource(R.dimen.vertical_margin)
+                    )
+                )
             }
         }
     }
+}
+
+private fun priorityLabel(priority: Priority): Int = when (priority) {
+    Priority.LOW -> R.string.priority_low
+    Priority.MEDIUM -> R.string.priority_medium
+    Priority.HIGH -> R.string.priority_high
 }

@@ -3,6 +3,7 @@ package com.tom.todoapp.feature.addedittask
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tom.todoapp.core.data.Priority
 import com.tom.todoapp.core.data.TaskRepository
 import com.tom.todoapp.core.ui.R
 import com.tom.todoapp.core.ui.TodoDestinationsArgs
@@ -25,16 +26,22 @@ class AddEditTaskViewModel @Inject constructor(
 
     private val _title = MutableStateFlow("")
     private val _description = MutableStateFlow("")
+    private val _priority = MutableStateFlow(Priority.MEDIUM)
     private val _isLoading = MutableStateFlow(false)
     private val _userMsg: MutableStateFlow<Int?> = MutableStateFlow(null)
     private val _isTaskSaved = MutableStateFlow(false)
 
+    private val _form = combine(_title, _description, _priority) { title, description, priority ->
+        Triple(title, description, priority)
+    }
+
     val uiState: StateFlow<AddEditTaskUiState> = combine(
-        _title, _description, _isLoading, _userMsg, _isTaskSaved
-    ) { title, description, isLoading, userMsg, isTaskSaved ->
+        _form, _isLoading, _userMsg, _isTaskSaved
+    ) { (title, description, priority), isLoading, userMsg, isTaskSaved ->
         AddEditTaskUiState(
             title = title,
             description = description,
+            priority = priority,
             isLoading = isLoading,
             userMsg = userMsg,
             isTaskSaved = isTaskSaved
@@ -58,6 +65,7 @@ class AddEditTaskViewModel @Inject constructor(
             if (task != null) {
                 _title.value = task.title
                 _description.value = task.description
+                _priority.value = task.priority
             } else {
                 _userMsg.value = R.string.task_not_found
             }
@@ -73,6 +81,10 @@ class AddEditTaskViewModel @Inject constructor(
         _description.value = description
     }
 
+    fun setPriority(priority: Priority) {
+        _priority.value = priority
+    }
+
     fun saveTask() {
         if (_title.value.isEmpty() || _description.value.isEmpty()) {
             _userMsg.value = R.string.empty_task_message
@@ -80,12 +92,17 @@ class AddEditTaskViewModel @Inject constructor(
         }
         viewModelScope.launch {
             if (taskId == null) {
-                taskRepository.createTask(title = _title.value, description = _description.value)
+                taskRepository.createTask(
+                    title = _title.value,
+                    description = _description.value,
+                    priority = _priority.value
+                )
             } else {
                 taskRepository.updateTask(
                     taskId = taskId,
                     title = _title.value,
-                    description = _description.value
+                    description = _description.value,
+                    priority = _priority.value
                 )
             }
             _isTaskSaved.value = true
@@ -100,6 +117,7 @@ class AddEditTaskViewModel @Inject constructor(
 data class AddEditTaskUiState(
     val title: String = "",
     val description: String = "",
+    val priority: Priority = Priority.MEDIUM,
     val isLoading: Boolean = false,
     val userMsg: Int? = null,
     val isTaskSaved: Boolean = false

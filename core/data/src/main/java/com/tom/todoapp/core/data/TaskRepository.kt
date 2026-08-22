@@ -15,9 +15,9 @@ interface TaskRepository {
 
     suspend fun getTask(taskId: String, forceUpdate: Boolean = false): Task?
 
-    suspend fun createTask(title: String, description: String): String
+    suspend fun createTask(title: String, description: String, priority: Priority): String
 
-    suspend fun updateTask(taskId: String, title: String, description: String)
+    suspend fun updateTask(taskId: String, title: String, description: String, priority: Priority)
 
     suspend fun deleteTask(taskId: String)
 
