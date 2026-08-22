@@ -19,3 +19,4 @@ build/
 .externalNativeBuild
 .cxx
 local.properties
+/plan-next-features.md
