@@ -1,6 +1,5 @@
 package com.tom.todoapp
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -51,7 +50,6 @@ fun TodoNavGraph(
                     taskId = null
                 )
             }, onTaskClick = { task ->
-                Log.i("tamld7", "TodoNavGraph:task = $task ")
                 navAction.navigateToDetailTask(taskId = task.id)
             })
         }
@@ -60,11 +58,6 @@ fun TodoNavGraph(
             route = TodoDestinations.ADD_EDIT_TASK_ROUTE,
             arguments = listOf(navArgument(name = TITLE_ARG) { type = NavType.IntType })
         ) { entry ->
-            val taskId = entry.arguments?.getString(TASK_ID_ARG)
-            val route = entry.destination.route
-            Log.i("tamld7", "TodoNavGraph: taskId = $taskId")
-            Log.i("tamld7", "TodoNavGraph: TITLE_ARG = ${entry.arguments?.getInt(TITLE_ARG)}")
-            Log.i("tamld7", "TodoNavGraph: rout = $route")
             AddEditTaskScreen(
                 topBarTitle = entry.arguments?.getInt(TITLE_ARG)
                     ?: R.string.add_task,
