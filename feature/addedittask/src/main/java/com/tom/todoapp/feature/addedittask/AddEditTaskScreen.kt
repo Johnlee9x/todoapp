@@ -1,6 +1,8 @@
 package com.tom.todoapp.feature.addedittask
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -9,6 +11,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -32,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.tom.todoapp.core.data.Priority
 import com.tom.todoapp.core.ui.AddEditTaskTopAppBar
 import com.tom.todoapp.core.ui.R
 
@@ -77,8 +81,10 @@ fun AddEditTaskScreen(
             loading = uiState.isLoading,
             title = uiState.title,
             description = uiState.description,
+            priority = uiState.priority,
             onTitleChange = addEditTaskViewModel::setTitle,
             onDescriptionChange = addEditTaskViewModel::setDescription,
+            onPriorityChange = addEditTaskViewModel::setPriority,
             modifier = Modifier.padding(paddingValues = paddingValues)
         )
     }
@@ -89,8 +95,10 @@ fun AddEditContent(
     loading: Boolean = false,
     title: String = "",
     description: String = "",
+    priority: Priority = Priority.MEDIUM,
     onTitleChange: (String) -> Unit = {},
     onDescriptionChange: (String) -> Unit = {},
+    onPriorityChange: (Priority) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     var isRefreshing by remember { mutableStateOf(false) }
@@ -126,6 +134,43 @@ fun AddEditContent(
                 placeholder = { Text(text = stringResource(id = R.string.description_hint)) },
             )
 
+            Text(
+                text = stringResource(id = R.string.priority),
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(top = dimensionResource(id = R.dimen.vertical_margin))
+            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = dimensionResource(id = R.dimen.list_item_padding)),
+                horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.list_item_padding))
+            ) {
+                PriorityChip(
+                    label = stringResource(id = R.string.priority_low),
+                    selected = priority == Priority.LOW,
+                    onClick = { onPriorityChange(Priority.LOW) }
+                )
+                PriorityChip(
+                    label = stringResource(id = R.string.priority_medium),
+                    selected = priority == Priority.MEDIUM,
+                    onClick = { onPriorityChange(Priority.MEDIUM) }
+                )
+                PriorityChip(
+                    label = stringResource(id = R.string.priority_high),
+                    selected = priority == Priority.HIGH,
+                    onClick = { onPriorityChange(Priority.HIGH) }
+                )
+            }
+
         }
     }
+}
+
+@Composable
+private fun PriorityChip(label: String, selected: Boolean, onClick: () -> Unit) {
+    FilterChip(
+        selected = selected,
+        onClick = onClick,
+        label = { Text(text = label) }
+    )
 }

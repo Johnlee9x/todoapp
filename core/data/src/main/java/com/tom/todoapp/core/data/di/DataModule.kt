@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.tom.todoapp.core.data.DefaultRepository
 import com.tom.todoapp.core.data.TaskRepository
+import com.tom.todoapp.core.data.local.MIGRATION_1_2
 import com.tom.todoapp.core.data.local.TodoDataBase
 import com.tom.todoapp.core.data.remote.NetworkDataSource
 import com.tom.todoapp.core.data.remote.NetworkDataSourceImpl
@@ -43,7 +44,7 @@ object DataLocalSourceModule {
             context.applicationContext,
             TodoDataBase::class.java,
             name = "Tasks.db"
-        ).build()
+        ).addMigrations(MIGRATION_1_2).build()
     }
 
     @Provides

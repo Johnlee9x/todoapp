@@ -9,6 +9,7 @@ fun Task.toLocal() = LocalTask(
     title = this.title,
     description = this.description,
     isCompleted = this.isCompleted,
+    priority = this.priority.name,
 )
 
 fun NetworkTask.toLocal() = LocalTask(
@@ -16,13 +17,15 @@ fun NetworkTask.toLocal() = LocalTask(
     title = this.title,
     description = this.shortDescription,
     isCompleted = (this.status == TaskStatus.COMPLETE),
+    priority = (Priority.entries.getOrNull(this.priority ?: 1) ?: Priority.MEDIUM).name,
 )
 
 fun LocalTask.toExternal() = Task(
     id = this.id,
     title = this.title,
     description = this.description,
-    isCompleted = this.isCompleted
+    isCompleted = this.isCompleted,
+    priority = Priority.valueOf(this.priority),
 )
 
 fun List<LocalTask>.toExternal() = map(LocalTask::toExternal)

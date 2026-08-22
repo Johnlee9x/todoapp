@@ -62,12 +62,19 @@ class DefaultRepository @Inject constructor(
 
     override suspend fun createTask(
         title: String,
-        description: String
+        description: String,
+        priority: Priority
     ): String {
         val taskId = withContext(defaultDispatcher) {
             java.util.UUID.randomUUID().toString()
         }
-        val task = LocalTask(id = taskId, title = title, description = description, isCompleted = false)
+        val task = LocalTask(
+            id = taskId,
+            title = title,
+            description = description,
+            isCompleted = false,
+            priority = priority.name
+        )
         localDataSource.upsert(task)
         return taskId
     }
@@ -75,9 +82,11 @@ class DefaultRepository @Inject constructor(
     override suspend fun updateTask(
         taskId: String,
         title: String,
-        description: String
+        description: String,
+        priority: Priority
     ) {
-        val task = localDataSource.getById(taskId)?.copy(title = title, description = description)
+        val task = localDataSource.getById(taskId)
+            ?.copy(title = title, description = description, priority = priority.name)
             ?: throw Exception("Task (id $taskId) not found")
         localDataSource.upsert(task)
     }
